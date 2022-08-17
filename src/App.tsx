@@ -10,7 +10,6 @@ import NotFound from "./pages/NotFound";
 import Signin from "./pages/Signin";
 
 function App() {
-  console.log("branch change");
   return (
     <ErrorBoundary FallbackComponent={Error}>
       <BrowserRouter>
