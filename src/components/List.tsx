@@ -2,29 +2,44 @@ import { Button, Layout, PageHeader, Table } from "antd";
 import { useEffect } from "react";
 import { BookType } from "../types";
 import Book from "./Book";
+import styles from "./List.module.css";
 
 interface ListProps {
   books: BookType[] | null;
   loading: boolean;
+  error: Error | null;
   getBooks: () => void;
+  logout: () => void;
 }
 
-const List: React.FC<ListProps> = ({ books, loading, getBooks }) => {
+const List: React.FC<ListProps> = ({
+  books,
+  loading,
+  error,
+  getBooks,
+  logout,
+}) => {
   useEffect(() => {
     getBooks();
   }, [getBooks]);
+
+  useEffect(() => {
+    if (error) {
+      logout();
+    }
+  }, [error, logout]);
+
   const goAdd = () => {};
-  const logout = () => {};
 
   return (
     <Layout>
       <PageHeader
         title={<div>Book List</div>}
         extra={[
-          <Button type="primary" onClick={goAdd}>
+          <Button type="primary" onClick={goAdd} className={styles.button}>
             Add Book
           </Button>,
-          <Button type="primary" onClick={logout}>
+          <Button type="primary" onClick={logout} className={styles.button}>
             Logout
           </Button>,
         ]}
@@ -50,6 +65,7 @@ const List: React.FC<ListProps> = ({ books, loading, getBooks }) => {
         showHeader={false}
         rowKey="bookId"
         pagination={false}
+        className={styles.table}
       />
     </Layout>
   );
