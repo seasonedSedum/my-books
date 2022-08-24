@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ListContainer from "../containers/ListContainer";
-import { RootState } from "../types";
+import useToken from "../hooks/useToken";
 
 export default function Home() {
   const navigate = useNavigate();
-  const token = useSelector<RootState, string | null>(
-    (state) => state.auth.token
-  );
+  const token = useToken();
 
   useEffect(() => {
     if (token === null) {

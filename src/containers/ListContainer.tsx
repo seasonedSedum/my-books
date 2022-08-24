@@ -5,6 +5,7 @@ import List from "../components/List";
 import { BookType, RootState } from "../types";
 import { getBooks as getBooksSagaStart } from "../redux/modules/books";
 import { logout as logoutSagaStart } from "../redux/modules/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function ListContainer() {
   const books = useSelector<RootState, BookType[] | null>(
@@ -29,6 +30,11 @@ export default function ListContainer() {
     dispatch(logoutSagaStart());
   }, [dispatch]);
 
+  const navi = useNavigate();
+  const goAdd = useCallback(() => {
+    navi("/add");
+  }, [navi]);
+
   return (
     <List
       books={books}
@@ -36,6 +42,7 @@ export default function ListContainer() {
       getBooks={getBooks}
       error={error}
       logout={logout}
+      goAdd={goAdd}
     />
   );
 }

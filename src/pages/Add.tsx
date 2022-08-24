@@ -1,9 +1,17 @@
-import React from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import AddContainer from "../containers/AddContainer";
+import useToken from "../hooks/useToken";
 
 export default function Add() {
-  return (
-    <div>
-      <h1>Add</h1>
-    </div>
-  );
+  const navigate = useNavigate();
+  const token = useToken();
+
+  useEffect(() => {
+    if (token === null) {
+      navigate("/signin");
+    }
+  }, [token, navigate]);
+
+  return <AddContainer />;
 }
